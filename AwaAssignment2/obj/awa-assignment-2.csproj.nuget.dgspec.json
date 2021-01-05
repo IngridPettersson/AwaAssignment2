@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ingri\\Strumpan-the-coder\\awa-assignment-2\\awa-assignment-2\\awa-assignment-2.csproj": {}
+    "C:\\Users\\ingri\\Strumpan-the-coder\\AwaAssignment2\\AwaAssignment2\\awa-assignment-2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ingri\\Strumpan-the-coder\\awa-assignment-2\\awa-assignment-2\\awa-assignment-2.csproj": {
+    "C:\\Users\\ingri\\Strumpan-the-coder\\AwaAssignment2\\AwaAssignment2\\awa-assignment-2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ingri\\Strumpan-the-coder\\awa-assignment-2\\awa-assignment-2\\awa-assignment-2.csproj",
+        "projectUniqueName": "C:\\Users\\ingri\\Strumpan-the-coder\\AwaAssignment2\\AwaAssignment2\\awa-assignment-2.csproj",
         "projectName": "awa-assignment-2",
-        "projectPath": "C:\\Users\\ingri\\Strumpan-the-coder\\awa-assignment-2\\awa-assignment-2\\awa-assignment-2.csproj",
+        "projectPath": "C:\\Users\\ingri\\Strumpan-the-coder\\AwaAssignment2\\AwaAssignment2\\awa-assignment-2.csproj",
         "packagesPath": "C:\\Users\\ingri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ingri\\Strumpan-the-coder\\awa-assignment-2\\awa-assignment-2\\obj\\",
+        "outputPath": "C:\\Users\\ingri\\Strumpan-the-coder\\AwaAssignment2\\AwaAssignment2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ingri\\AppData\\Roaming\\NuGet\\NuGet.Config",

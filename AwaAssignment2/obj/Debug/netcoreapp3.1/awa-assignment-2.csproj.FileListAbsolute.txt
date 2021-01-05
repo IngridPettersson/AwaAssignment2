@@ -1,0 +1,13 @@
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\bin\Debug\netcoreapp3.1\awa-assignment-2.exe
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\bin\Debug\netcoreapp3.1\awa-assignment-2.deps.json
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\bin\Debug\netcoreapp3.1\awa-assignment-2.runtimeconfig.json
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\bin\Debug\netcoreapp3.1\awa-assignment-2.runtimeconfig.dev.json
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\bin\Debug\netcoreapp3.1\awa-assignment-2.dll
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\bin\Debug\netcoreapp3.1\awa-assignment-2.pdb
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\obj\Debug\netcoreapp3.1\awa-assignment-2.csprojAssemblyReference.cache
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\obj\Debug\netcoreapp3.1\awa-assignment-2.AssemblyInfoInputs.cache
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\obj\Debug\netcoreapp3.1\awa-assignment-2.AssemblyInfo.cs
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\obj\Debug\netcoreapp3.1\awa-assignment-2.csproj.CoreCompileInputs.cache
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\obj\Debug\netcoreapp3.1\awa-assignment-2.dll
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\obj\Debug\netcoreapp3.1\awa-assignment-2.pdb
+C:\Users\ingri\Strumpan-the-coder\AwaAssignment2\AwaAssignment2\obj\Debug\netcoreapp3.1\awa-assignment-2.genruntimeconfig.cache
