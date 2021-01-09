@@ -3,22 +3,30 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace AwaAssignment2
+namespace awa_assignment_2
 {
     class Program
     {
-        //Instead of all these public fields I should change some of them to properties within own classes in their own files, and others to return values.
-        //Or make a new function where I return a value.
-        static Dictionary<string, double> ingredients = new Dictionary<string, double>();
-        static string ingredient;
-        static double price;
-        static double maxValue;
-        static double minValue;
-        static string keyOfMaxValue;
-        static string keyOfMinValue;
-        static double totalPrice = 0.0;
-        // A string[] might preferrably be used for the variable "surpriseSalad" but I want to try out the List<> and see how it's behaving.
-        static List<string> surpriseSalad = new List<string>();
+        //Why error when entering ingredients with the same price or name? Max and min value should be able to be the same.
+        // As well as you could choose the same fruit twice cause you might want 2 of them. And how to fix it? 
+
+        //Create new files/classes from the project: Calculator maybe one class...? So it is possible to create classes without creating new
+        //objects from them. Do the methods in the class static (and public I guess) and then call them
+        //from Main (or from anywhere in another file?) using Classname.MethodName(argument);. Could also make the whole class static and then you 
+        //can't create an object.
+        public static string Ingredient { get; set; }
+        public static double Price { get; set; }
+        public static double MaxValue { get; set; }
+        public static double MinValue { get; set; }
+        public static string KeyOfMaxValue { get; set; }
+        public static string KeyOfMinValue { get; set; }
+        public static string SantaString { get; set; }
+        public static double Remainder { get; set; }
+
+        public static double TotalPrice { get; set; }
+
+        public static Dictionary<string, double> ingredients = new Dictionary<string, double>();
+        public static List<string> surpriseSalad = new List<string>();
 
         static void Main(string[] args)
         {
@@ -26,115 +34,146 @@ namespace AwaAssignment2
             {
                 WelcomeUser();
                 AskForIngredient();
-                //CalculatePrices(); totalPrice blir det dubbla om man kör både denna och cw nedan
-                Console.WriteLine($"The remainder for Santa to pay is: SEK {CalculatePrices()}:-");
-                ShowTotalPrice();
-                ShowMostExpensive();
-                ShowCheapest();
+                CalculatePrices();
+                Console.WriteLine($"The remainder for Santa to pay is: SEK {Remainder}:-. {SantaString}");
+                ShowPrices();
                 CreateSurpriseSalad();
+                PresentGuestGrades();
+                SayGoodbye();
             }
             catch
             {
                 Console.WriteLine("Oops, something went wrong... Seems like you're left on your own to handle your fruit salad... :/");
             }
         }
-
         private static void WelcomeUser()
         {
             Console.WriteLine("Hello and welcome to this fruit salad party!".ToUpper());
             Console.WriteLine("\nOh, but the fruit salad isn't ready yet... in fact we didn't even decide " +
                 "which ingredients we want - let's fix that!\n\nAND TO PREPARE YOUR MINDSET, there will be some extras here and it wont make sense " +
-                "if you don't read all the \"bla bla bla\", so my recommendation is that you do just that :)\n\nPlease press Enter to continue...");
+                "if you don't read all the \"bla bla bla\", so my recommendation is that you do just that :) Oh, and it will take some time!" +
+                "\n\nPlease press Enter to continue...");
             Console.ReadLine();
             Console.Clear();
         }
 
         private static void AskForIngredient()
         {
-            for (int i = 0; i < 3; i++)
+            Console.WriteLine("Let's begin!\n\nWe expect a total of 4 ingredients in your fruit salad.\n");
+            for (int i = 0; i < 4; i++)
             {
                 Console.Write("Enter an ingredient for your fruit salad: ");
-                // Add error handling for if the user didnt type a string (at least two characters). Check hangman (if else clause).
-                ingredient = Console.ReadLine();
+                //Kan man använda Console.ReadKey här i stället?
+                Ingredient = Console.ReadLine();
+                if (Ingredient.Length < 2)
+                {
+                    i--;
+                    Console.WriteLine("Are you really making a proper fruit salad? At least two characters are needed " +
+                        "to be a fruit around here...");
+                    continue;
+                }
                 Console.Write("Enter price in SEK for \"one unit\" of the ingredient: ");
 
-                //Add error handling if the user didnt type an int.
                 try
                 {
-                    price = Convert.ToDouble(Console.ReadLine());
+                    Price = Convert.ToDouble(Console.ReadLine());
                 }
-                //Is this exception from API correct? Another option could be "NotFiniteNumberException".
-                catch (FormatException)
+                catch (FormatException e)
                 {
-                    //How to repeat this catch code until int is entered? Now it works if you make the mistake max once per ingredient.
-                    Console.Write("Please type the price as a valid number: ");
-                    price = Convert.ToDouble(Console.ReadLine());
+                    i--;
+                    Console.WriteLine(e.Message);
+                    continue;
                 }
-                ingredients.Add(ingredient, price);
+                ingredients.Add(Ingredient, Price);
             }
             Console.WriteLine();
         }
 
-        //        Console.Write("Enter a Number\n");
-        //          string input = Console.ReadLine(); //get the input
-        //          int num = -1;
-        //          if (!int.TryParse(input, out num))
-        //          {
-        //           Console.WriteLine("Not an integer");
-        //          }
-        //          else
-        //          {
-        //            ...
-        //          }
-
-        private static double CalculatePrices()
-        // Kan dela upp den här i flera metoder, t.ex. CalculateMaxValue, ...MinValue och totalPrice och använda return.
+        private static void CalculatePrices()
         {
             Console.Clear();
-            maxValue = ingredients.Values.Max();
-            keyOfMaxValue = ingredients.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
-            minValue = ingredients.Values.Min();
-            keyOfMinValue = ingredients.Aggregate((x, y) => x.Value < y.Value ? x : y).Key;
+
+            MaxValue = ingredients.Values.Max();
+            KeyOfMaxValue = ingredients.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+            MinValue = ingredients.Values.Min();
+            KeyOfMinValue = ingredients.Aggregate((x, y) => x.Value < y.Value ? x : y).Key;
 
             foreach (KeyValuePair<string, double> item in ingredients)
             {
-                totalPrice += item.Value;
+                TotalPrice += item.Value;
             }
 
-            Console.WriteLine("It turns out that 2 of your friends will share the cost with you and Santa will pay the remainder - how random!\n");
-            double remainder = totalPrice % 3;
-            return remainder;
-
-            // Beräkna totalPrice % 2 (modulus?) för att dela kostnaden på 2 och Jultomten betalar the remainder!??? Om remainder blir 0 så någonting, typ tomten blir glad :)
+            CalculateRemainder();
         }
+
+        private static (double, string) CalculateRemainder()
+        {
+
+            Console.WriteLine("It turns out that 2 of your friends will share the cost with you and Santa will pay the remainder - how random!\n");
+            Remainder = TotalPrice % 3;
+
+            if (Remainder < 1)
+            {
+                SantaString = "\"- That was a good deal for me! I could be a nice guy and still lose nothing :)\" /Santa";
+            }
+            else
+            {
+                SantaString = "\"- What?? I never gave my consent to this! I'm afraid you should consider this as your pre-given " +
+                    "2021 Christmas gift...\" /Santa";
+            }
+            return (Remainder, SantaString);
+        }
+
+private static void ShowPrices()
+        {
+            ShowTotalPrice();
+            ShowMostExpensive();
+            ShowCheapest();
+        }
+       
         private static void ShowTotalPrice()
         {
             Console.WriteLine("\nValuable facts about your fruit salad:".ToUpper());
             Console.WriteLine();
-            Console.WriteLine($"Total price: SEK {totalPrice}:-");
+            Console.WriteLine($"Total price: SEK {TotalPrice}:-");
             Console.WriteLine();
         }
         private static void ShowMostExpensive()
         {
-            Console.WriteLine($"Most expensive ingredient: {keyOfMaxValue}\nPrice: SEK {maxValue}:-");
+            Console.WriteLine($"Most expensive ingredient: {KeyOfMaxValue}\nPrice: SEK {MaxValue}:-");
             Console.WriteLine();
         }
         private static void ShowCheapest()
         {
-            Console.WriteLine($"Cheapest ingredient: {keyOfMinValue}\nPrice: SEK {minValue}:-");
+            Console.WriteLine($"Cheapest ingredient: {KeyOfMinValue}\nPrice: SEK {MinValue}:-");
             Console.WriteLine();
             Console.WriteLine("Bon appéttit!\n\nOh, but wait...".ToUpper());
-            Console.WriteLine("...something peculiar just occured! Please press Enter to find out more...");
+            Console.WriteLine("...something peculiar just occured!\n\nPlease press Enter to find out more...");
             Console.ReadLine();
         }
 
-        //Dela upp CreateSurpriseSalad i flera funktioner för bättre översikt????
+        //Dela upp CreateSurpriseSalad i flera funktioner för bättre översikt???? OCH surpriseSpices i surpriseSallad kan vara en egen klass
+        // (SurpriseSpice) med arguments of name, color and price. ELLER lägga till en till ingrediens eller något annat som får vara en egen
+        // klass till att börja med kanske...? Kanske guest list med name, age och eyeColor: Mademoiselle Petit, Madame Mustard, Monsieur Hercules
+        // Poirot och His Majesty Soosh.
         private static void CreateSurpriseSalad()
         {
             Console.Clear();
-            Console.WriteLine("When you sent in the recipe to your fruit salad teacher it failed unfortunately, for seeming a bit too..." +
-                " conventional. Your guests' taste buds might get bored. Let's create a small but oh so " +
-                "delicious surprise salad instead, with fresh ingredients from all over the world!\n");
+            Console.WriteLine("When you sent this fruit salad recipe to your fruit salad teacher he identified some areas of improvement. " +
+                "His biggest concern was that it seemed a bit too..." +
+                " conventional. Your guests' taste buds might get bored, and we can't take that risk!\n\nLet's create a small but OH SO " +
+                "DELICIOUS surprise salad instead, with fresh ingredients from all over the world!\n\nPlease press Enter to continue...\n");
+            Console.ReadLine();
+            Console.Clear();
+
+            Console.WriteLine("Oh oh oh!\n\nSomething of highest importance just crossed my mind! We don't know who your honored " +
+                "guests are(?)\n\nLet's find " +
+                "out by pressing Enter!");
+            Console.ReadLine();
+            Console.Clear();
+
+            PresentGuestList();
+
             Console.WriteLine("Please press Enter to start creating your surprise salad!".ToUpper());
             Console.ReadLine();
             Console.Clear();
@@ -150,22 +189,28 @@ namespace AwaAssignment2
             }
             catch (FileNotFoundException)
             {
-                surpriseIngredients = new string[] { "cherimoya", "kiwano", "dragon fruit", "feijoa",
-                    "tamarillo", "loquat", "jujube", "mangosteen", "rambutan", "pacay", "starfruit", "atemoya" };
+                surpriseIngredients = new string[] { "Chayote", "Kiwano", "Dragon fruit", "Feijoa",
+                    "Tamarillo", "Loquat", "Jabuticaba", "Monstera deliciosa", "Rambutan", "Pacay", "Starfruit", "Atemoya",
+                "Buddha's hand", "Guanabana", "Noni fruit" };
             }
 
             do
             {
                 // Göra lista med ingredientNumbers (first, second, third) där man går upp en i listan efter varje loop?
-                string ingredientNumber;
 
-                Console.WriteLine($"Please type any letter to get your ingredientNumber ingredient. OBS! Some letters wont give you any fruit " +
-                    $"(such is life I guess). " +
+                Console.WriteLine($"Please type any letter to get one of your ingredients. OBS! Some letters wont give you any fruit " +
+                    $"(such is life I guess)... " +
                     $"In that case, don't lose hope - be persistent and keep typing!");
 
-                //Add error handling for typing something else than just one letter!
-                //Do I always need to parse Console.ReadLine() if the input is else than a string?????? JA, enligt Mike.
-                typedLetter = char.Parse(Console.ReadLine());
+                try
+                {
+                typedLetter = char.Parse(Console.ReadLine().ToUpper());
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
 
                 foreach (string fruit in surpriseIngredients)
                 {
@@ -181,8 +226,8 @@ namespace AwaAssignment2
             Console.ReadLine();
             Console.Clear();
 
-            surpriseSpices = new string[] { "black pepper", "vata churna", "chili", "turmeric", "cinnamon", "cardamom", "ginger", "dill",
-                "fennel" };
+            surpriseSpices = new string[] { "vata churna", "dill",
+                "thyme", "catnip", "fenugreek", "garlic", "kawakawa", "savory" };
 
             //Capitalize all ingredients and spices from array?
             Console.WriteLine("And now we'll add a generous amount of a random spice to your surprise salad!".ToUpper());
@@ -200,12 +245,49 @@ namespace AwaAssignment2
 
             foreach (string fruit in surpriseSalad)
             {
-                Console.WriteLine(fruit);
+                Console.WriteLine(fruit.ToUpper());
             }
-            Console.WriteLine(randomizedSpice);
+            Console.WriteLine(randomizedSpice.ToUpper());
             Console.WriteLine();
-            Console.WriteLine("Enjoy!".ToUpper());
+            Console.WriteLine("SURPRISE PRICE: SEK 3 275 483:-\n");
+        }
+
+        private static void PresentGuestList()
+        {
+            Console.WriteLine($"Guest list:\n".ToUpper());
+
+            Guest guest3 = new Guest("Madame L'étonnement", 33.5);
+            Guest guest1 = new Guest("Hercule Poirot", 4);
+            Guest guest2 = new Guest("Miss Lemon", 4);
+            Guest guest4 = new Guest("Mademoiselle E. Petit", 1.5);
+
+            Console.WriteLine("Wow, what a list! We can expect a great deal of fun I think :)\n");
+        }
+
+        private static void PresentGuestGrades()
+        {
+            Console.WriteLine("Okay... please sit down... the moment of truth has arrived. Each of your guests is now ready to present to " +
+                "you the grade they have given your surprise salad.\n\nPlease press Enter to get your grades (scale 0-5)");
+            Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("YOUR GRADES: \n\n");
+
+            Guest guest3 = new Guest("Madame L'étonnement", 1.0, "I love surprises! Unfortunately I don't like fruit.");
+            Guest guest1 = new Guest("Hercule Poirot", 2.1572, "Too unpredictable and messy.");
+            Guest guest2 = new Guest("Miss Lemon", 10, "Missed some balancing sour.");
+            Guest guest4 = new Guest("Mademoiselle E. Petit", 5, "Mmmmmmmmmmm...");
+
+            Console.WriteLine("But what's this now??? I think a surprise guest just arrived! Yes it's correct, we have another guest " +
+                "on the list!\n\n");
+            Console.WriteLine($"NAME: You your fine self\nGRADE: ?\nCOMMENT: ?\n\n");
+            Console.WriteLine("You have created this extravagant surprise salad and as a guest at your own party it's now time for " +
+                "you to evaluate it. Oh no no no no, not here!\n");
+        }
+
+        private static void SayGoodbye()
+        {
+            Console.WriteLine("AAAAND... PJU! IT'S FINALLY DONE! And your fruit salad teacher seems happy :)\n");
+            Console.WriteLine("GOODBYE FOR NOW!");
         }
     }
 }
-
