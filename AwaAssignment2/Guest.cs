@@ -6,23 +6,23 @@ namespace awa_assignment_2
 {
     class Guest
     {
-        public string name;
-        public double yearsAsFriends;
+        public string Name { get; set; }
+        public double YearsAsFriends { get; set; }
+        public string Comment { get; set; }
         private double surpriseSaladGrade;
-        public string comment;
 
         public Guest(string name, double yearsAsFriends)
         {
-            this.name = name;
-            this.yearsAsFriends = yearsAsFriends;
+            this.Name = name;
+            this.YearsAsFriends = yearsAsFriends;
 
             Console.WriteLine($"NAME: {name}\nYEARS AS FRIENDS: {yearsAsFriends}\n");
         }
         public Guest(string name, double surpriseSaladGrade, string comment)
         {
-            this.name = name;
-            SurpriseSaladGrade = surpriseSaladGrade;
-            this.comment = comment;
+            this.Name = name;
+            this.SurpriseSaladGrade = surpriseSaladGrade;
+            this.Comment = comment;
 
             string areYouWelcome;
             if (WelcomeAgain())
@@ -34,7 +34,7 @@ namespace awa_assignment_2
                 areYouWelcome = "I'm sorry you didn't like my surprise salad. So I think our roads diverse here...";
             }
 
-            Console.WriteLine($"NAME: {name}\nGRADE: {SurpriseSaladGrade}\nCOMMENT: {comment}\nCOMMENT FROM YOU TO GUEST: {areYouWelcome}\n\n");
+            Console.WriteLine($"NAME: {name}\nGRADE: {surpriseSaladGrade}\nCOMMENT: {comment}\nCOMMENT FROM YOU TO GUEST: {areYouWelcome}\n");
         }
 
         public double SurpriseSaladGrade
@@ -51,10 +51,7 @@ namespace awa_assignment_2
 
         public bool WelcomeAgain()
         {
-            if (surpriseSaladGrade >= 4)
-                return true;
-            else
-                return false;
+            return surpriseSaladGrade >= 4;
         }
     }
 }
