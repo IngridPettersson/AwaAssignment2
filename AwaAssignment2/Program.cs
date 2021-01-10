@@ -17,6 +17,11 @@ namespace awa_assignment_2
         //objects from them. Do the methods in the class static (and public I guess) and then call them
         //from Main (or from anywhere in another file?) using Classname.MethodName(argument);. Could also make the whole class static and then you 
         //can't create an object.
+
+        //The code works just fine with the properties declared like this but I don't use the advantage with them. I should declare a private variable in camel Case
+        //and then do the property public with Pascal Case (as below) but then get use of the getters and setters for it to make sense. And if it's a read-only 
+        //property the setter can be removed. And if I need to initialize the setter with an if statement I could do that. And the getter should return the above 
+        //declared private variable in camel Case. The setter also refers to the camel Case variable above.
         public static string Ingredient { get; set; }
         public static double Price { get; set; }
         public static double MaxValue { get; set; }
