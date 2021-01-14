@@ -79,13 +79,13 @@ namespace awa_assignment_2
             this.SurpriseSaladGrade = surpriseSaladGrade;
             this.Comment = comment;
 
-            string areYouWelcome;
+            string commentToGuest;
             if (WelcomeAgain())
-                areYouWelcome = "Well well well, see you next time!";
+                commentToGuest = "I knew I could count on you! :)";
             else
-                areYouWelcome = "You rather eat apple alone next time?";
+                commentToGuest = "Apple for you next time - alone!";
 
-            Console.WriteLine($"NAME: {name}\nGRADE: {surpriseSaladGrade}\nCOMMENT: {comment}\nCOMMENT FROM YOU TO GUEST: {areYouWelcome}\n");
+            Console.WriteLine($"NAME: {name}\nGRADE: {surpriseSaladGrade}\nCOMMENT: {comment}\nCOMMENT FROM YOU TO GUEST: {commentToGuest}\n");
         }
 
         public bool WelcomeAgain()

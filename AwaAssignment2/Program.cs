@@ -35,7 +35,8 @@ namespace awa_assignment_2
                 WelcomeUser();
                 AskForIngredient();
                 CalculatePrices();
-                Console.WriteLine($"The remainder for Santa to pay is: SEK {remainder}:-. {santaString}");
+                Console.WriteLine("{0} {1:C}", "The remainder for Santa to pay is: ",remainder);
+                Console.WriteLine(santaString);
                 ShowPrices();
                 CreateSurpriseSalad();
                 PresentGuestGrades();
@@ -73,7 +74,8 @@ namespace awa_assignment_2
                     Console.WriteLine("Are you really making a proper fruit salad? At least two characters are needed to be a fruit around here...");
                     continue;
                 }
-                Console.Write("Enter price for \"one unit\" of the ingredient (SEK): ");
+                
+                Console.Write($"Enter price for \"one unit\" of the ingredient (SEK): ");
 
                 try
                 {
@@ -123,7 +125,7 @@ namespace awa_assignment_2
             Console.WriteLine("It turns out that 2 of your friends will share the cost with you and Santa will pay the remainder - how random!\n");
             remainder = totalPrice % 3;
 
-            if (remainder < 1)
+            if (remainder <= 0)
                 santaString = "\"- That was a good deal for me! I could be a nice guy and still lose nothing :)\" /Santa";
             else
                 santaString = "\"- What?? I never gave my consent to this! I'm afraid you should consider this as your pre-given " +
@@ -147,18 +149,23 @@ namespace awa_assignment_2
         {
             Console.WriteLine("\nValuable facts about your fruit salad:".ToUpper());
             Console.WriteLine();
-            Console.WriteLine($"Total price: SEK {totalPrice}:-");
-            Console.WriteLine();
+            Console.Write($"Total price: ");
+            Console.Write("{0:C}", totalPrice);
+            Console.WriteLine("\n");
         }
         static void ShowMostExpensive()
         {
-            Console.WriteLine($"Most expensive ingredient: {keyOfMaxValue}\nPrice: SEK {maxValue}:-");
-            Console.WriteLine();
+            Console.WriteLine($"Most expensive ingredient: {keyOfMaxValue}");
+            Console.Write("Price: ");
+            Console.Write("{0:C}", maxValue);
+            Console.WriteLine("\n");
         }
         static void ShowCheapest()
         {
-            Console.WriteLine($"Cheapest ingredient: {keyOfMinValue}\nPrice: SEK {minValue}:-");
-            Console.WriteLine();
+            Console.WriteLine($"Cheapest ingredient: {keyOfMinValue}");
+            Console.Write("Price: ");
+            Console.Write("{0:C}", minValue);
+            Console.WriteLine("\n");
             Console.WriteLine("Bon appéttit!\n\nOh, but wait...".ToUpper());
             Console.WriteLine("...something peculiar just occured!\n\nPress Enter to find out more...");
             Console.ReadLine();
@@ -295,7 +302,7 @@ namespace awa_assignment_2
 
             Console.WriteLine(randomizedSpice.ToUpper());
             Console.WriteLine();
-            Console.WriteLine("SURPRISE PRICE: SEK 3 275 483:-\n");
+            Console.WriteLine("SURPRISE PRICE: 3 275 483 kr\n");
         }
 
         private static void PresentGuestList()
@@ -320,7 +327,7 @@ namespace awa_assignment_2
 
             Guest guest3 = new Guest("Her Majesty Doctora", 1.0, "I love surprises! Unfortunately I don't like to give grades.");
             Guest guest1 = new Guest("Hercule Poirot", 2.1572, "Too unpredictable and messy.");
-            Guest guest2 = new Guest("Miss Lemon", 10, "Missed some balancing sour.");
+            Guest guest2 = new Guest("Miss Lemon", 3.0, "Missed some balancing sour.");
             Guest guest4 = new Guest("Mademoiselle E. Petit", 5, "Mmmmmmmmmmm...");
 
             Console.WriteLine("I hope you are satisfied with your grades. Press Enter to continue...");
