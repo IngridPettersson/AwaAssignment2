@@ -75,22 +75,26 @@ namespace awa_assignment_2
         // Constructor
         public Guest(string name, double surpriseSaladGrade, string comment)
         {
-            this.Name = name;
-            this.SurpriseSaladGrade = surpriseSaladGrade;
-            this.Comment = comment;
-
+            Name = name;
+            SurpriseSaladGrade = surpriseSaladGrade;
+            Comment = comment;
             string commentToGuest;
-            if (WelcomeAgain())
-                commentToGuest = "I knew I could count on you! :)";
-            else
+            if (NotWelcomeAgain())
+            {
                 commentToGuest = "Apple for you next time - alone!";
+            }
+            else
+                commentToGuest = "I knew I could count on you! :)";
 
-            Console.WriteLine($"NAME: {name}\nGRADE: {surpriseSaladGrade}\nCOMMENT: {comment}\nCOMMENT FROM YOU TO GUEST: {commentToGuest}\n");
+            if (SurpriseSaladGrade == -1)
+                Console.WriteLine($"NAME: {Name}\nGRADE: Invalid grade\nCOMMENT: {Comment}\nCOMMENT FROM YOU TO GUEST: I miss your grade...\n");
+            else
+                Console.WriteLine($"NAME: {Name}\nGRADE: {SurpriseSaladGrade}\nCOMMENT: {Comment}\nCOMMENT FROM YOU TO GUEST: {commentToGuest}\n");
         }
 
-        public bool WelcomeAgain()
+        public bool NotWelcomeAgain()
         {
-            return surpriseSaladGrade >= 4;
+            return surpriseSaladGrade < 4 && surpriseSaladGrade != -1;
         }
     }
 }

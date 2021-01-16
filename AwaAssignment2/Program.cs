@@ -87,6 +87,12 @@ namespace awa_assignment_2
                     Console.WriteLine(e.Message);
                     continue;
                 }
+                if (price <= 0)
+                {
+                    i--;
+                    Console.WriteLine("You don't get this for free my friend. Price must be more than 0 :)");
+                    continue;
+                }
                 try
                 {
 
@@ -105,6 +111,9 @@ namespace awa_assignment_2
         static void CalculatePrices()
         {
             Console.Clear();
+
+                // I should be able to use List<T> instead of dictionary and add the price as a property, then orderbydescending for p.Price and in the same method call for the First item in the list.
+                // I can use the Sum() method on the Price to get the total price.
 
                 maxValue = ingredients.Values.Max();
                 keyOfMaxValue = ingredients.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
@@ -208,7 +217,7 @@ namespace awa_assignment_2
         {
             try
             {
-                surpriseIngredients = File.ReadAllLines(@"C:\Users\ingri\OneDrive\Desktop\surpriseIngredients.txt");
+                surpriseIngredients = File.ReadAllLines(@"C:\Users\ingri\OneDrive\Desktop\surpriseIngredient.txt"); //Purposely wronf file name. Should be Ingredients with s.
             }
             catch (FileNotFoundException)
             {
@@ -258,15 +267,16 @@ namespace awa_assignment_2
 
                 foreach (string fruit in surpriseIngredients)
                 {
-                    if (fruit.StartsWith(typedLetter))
+                    if (fruit.StartsWith(typedLetter) && surpriseSalad.Contains(fruit))
+                        Console.WriteLine($"\"{typedLetter}\" has already borne fruit! Remember {fruit}?");
+                    else if (fruit.StartsWith(typedLetter) && !surpriseSalad.Contains(fruit))
                     {
                         Console.WriteLine($"\n\"{typedLetter}\" gives ju {fruit.ToUpper()}");
                         surpriseSalad.Add(fruit);
                         Console.WriteLine();
                     }
                 }
-
-            } while (surpriseSalad.Count < 3); ;
+            } while (surpriseSalad.Count < 3);
         }
 
         static void MakeGameFlow2()
@@ -325,7 +335,7 @@ namespace awa_assignment_2
             Console.Clear();
             Console.WriteLine("YOUR GRADES: \n");
 
-            Guest guest3 = new Guest("Her Majesty Doctora", 1.0, "I love surprises! Unfortunately I don't like to give grades.");
+            Guest guest3 = new Guest("Her Majesty Doctora", -25, "I love surprises! Unfortunately I don't like to give grades.");
             Guest guest1 = new Guest("Hercule Poirot", 2.1572, "Too unpredictable and messy.");
             Guest guest2 = new Guest("Miss Lemon", 3.0, "Missed some balancing sour.");
             Guest guest4 = new Guest("Mademoiselle E. Petit", 5, "Mmmmmmmmmmm...");
@@ -342,7 +352,7 @@ namespace awa_assignment_2
             Console.WriteLine($"NAME: You your fine self\nGRADE: ?\nCOMMENT: ?\n");
             Console.WriteLine("You have created this extravagant surprise salad and as a guest at your own party it's now time for " +
                 "you to evaluate it. Oh no no no no, not here!\n");
-            Console.WriteLine("AAAAND... PJU! IT'S FINALLY DONE! And your fruit salad teacher seems happy :)\n");
+            Console.WriteLine("AAAAND... PJU! IT'S FINALLY DONE! And your fruit salad teacher seems happy (relieved?) :)\n");
             Console.WriteLine("GOODBYE FOR NOW!");
         }
     }
